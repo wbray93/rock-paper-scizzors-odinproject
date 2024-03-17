@@ -54,13 +54,15 @@ function letsPlay(playerChoice) {
     let playerPoints = 0;
     let computerPoints = 0;
     let rounds = 0;
+    let results = []; //stores the results of each round
+
     while(rounds < 5) {
         let playerChoice = getPlayerChoice();
         let computerChoice = getComputerChoice();
-        console.log("Player choice:", playerChoice);
-        console.log("Computer choice:", computerChoice);
+        // console.log("Player choice:", playerChoice);
+        // console.log("Computer choice:", computerChoice);
         let result = determineWinner(playerChoice, computerChoice);
-        console.log(result);
+        // console.log(result);
 
         if (result === "Player wins!") {
             playerPoints++
@@ -68,17 +70,20 @@ function letsPlay(playerChoice) {
             computerPoints++;
         }
 
-
+        results.push(result);
         rounds++;
     }
-    console.log("Player points: ", playerPoints);
-    console.log("Computer points: ", computerPoints);
+
+
+    let winner;
     if(playerPoints > computerPoints) {
-        console.log("Player has won the game!");
+        winner = "Player has won the game!";
     } else if(playerPoints < computerPoints) {
-        console.log("Computer has won the game!");
+        winner = "Computer has won the game!";
     } else {
-        console.log("Its a tie!")
+        winner = "Its a tie!";
     }
     
+
+    return { results, winner }; // Return the results of each round and the final winner
 };
