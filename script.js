@@ -1,3 +1,39 @@
+const rockContainer = document.querySelector("#rock");
+const paperContainer = document.querySelector("#paper");
+const scissorsContainer = document.querySelector("#scissors");
+
+// Function to create a button with specified background image
+function createButton(container, backgroundImageUrl) {
+    const button = document.createElement("button");
+    button.classList.add("button"); // Add a common class for styling
+    button.style.width = "80%";
+    button.style.height = "35vh";
+    button.style.margin = "auto";
+    button.style.backgroundImage = `url('${backgroundImageUrl}')`;
+    button.style.backgroundSize = "cover";
+    button.style.backgroundPosition = "center";
+    button.style.border = "none";
+    button.style.cursor = "pointer";
+    button.style.outline = "none"
+    container.appendChild(button);
+}
+
+//Handles the Rock button
+createButton(rockContainer, "rockpictures.jpg");
+
+//Handles the Paper button
+createButton(paperContainer, "paperpictures.jpg");
+
+//Handles the Scissors button
+createButton(scissorsContainer, "scissorspictures.jpg");
+
+
+
+
+
+
+
+
 function getComputerChoice() {
     const random = ["Rock", "Paper", "Scissors"];
     const randomIndex = Math.floor(Math.random() * random.length);
@@ -59,7 +95,7 @@ function letsPlay(playerChoice) {
     while(rounds < 5) {
         let playerChoice = getPlayerChoice();
         let computerChoice = getComputerChoice();
-        // console.log("Player choice:", playerChoice);
+        console.log("Player choice:", playerChoice);
         // console.log("Computer choice:", computerChoice);
         let result = determineWinner(playerChoice, computerChoice);
         // console.log(result);
