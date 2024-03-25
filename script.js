@@ -1,6 +1,8 @@
 const rockContainer = document.querySelector("#rock");
 const paperContainer = document.querySelector("#paper");
 const scissorsContainer = document.querySelector("#scissors");
+const playerScore = document.querySelector("#playerScore");
+const computerScore = document.querySelector("#computerScore");
 
 // Function to create a button with specified background image
 function createButton(container, backgroundImageUrl, choice) {
@@ -77,8 +79,6 @@ function playerChoiceHandler(choice) {
 }
 
 function roundEndPointsUpdate() {
-    const playerScore = document.querySelector("#playerScore");
-    const computerScore = document.querySelector("#computerScore");
     playerScore.textContent = `Player Score: ${playerPoints}`;
     computerScore.textContent = `Computer Score: ${computerPoints}`;
 }
