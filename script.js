@@ -3,36 +3,36 @@ const paperContainer = document.querySelector("#paper");
 const scissorsContainer = document.querySelector("#scissors");
 
 // Function to create a button with specified background image
-function createButton(container, backgroundImageUrl) {
+function createButton(container, backgroundImageUrl, choice) {
     const button = document.createElement("button");
     button.classList.add("button"); // Add a common class for styling
-    button.style.width = "80%";
-    button.style.height = "35vh";
+    button.style.width = "250px";
+    button.style.height = "250px";
+    button.style.borderRadius = "90%"
     button.style.margin = "auto";
     button.style.backgroundImage = `url('${backgroundImageUrl}')`;
-    button.style.backgroundSize = "cover";
-    button.style.backgroundPosition = "center";
+    button.style.backgroundSize = "100% 100%";
     button.style.border = "none";
     button.style.cursor = "pointer";
     button.style.outline = "none"
+    button.addEventListener('click', () => playerChoiceHandler(choice));
     container.appendChild(button);
 }
 
 //Handles the Rock button
-createButton(rockContainer, "rockpictures.jpg");
+createButton(rockContainer, "rockpictures.jpg", "rock");
 
 //Handles the Paper button
-createButton(paperContainer, "paperpictures.jpg");
+createButton(paperContainer, "paperpictures.jpg", "paper");
 
 //Handles the Scissors button
-createButton(scissorsContainer, "scissorspictures.jpg");
+createButton(scissorsContainer, "scissorspictures.jpg", "scissors");
 
-
-
-
-
-
-
+let playerChoice;
+let playerPoints = 0
+let computerPoints = 0;
+let rounds = 0;
+let results = []; //stores the results of each round
 
 function getComputerChoice() {
     const random = ["Rock", "Paper", "Scissors"];
@@ -40,13 +40,45 @@ function getComputerChoice() {
     return random[randomIndex].trim().toLowerCase();
 }
 
-function getPlayerChoice() {
-    let choice = prompt("Select your choice (Rock, Paper, or Scissors): ").trim().toLowerCase();
-    // Validate the player's input
-    while (!["rock", "paper", "scissors"].includes(choice)) {
-        choice = prompt("Invalid choice! Please enter a correct choice from the options listed: ").trim().toLowerCase();
+function playerChoiceHandler(choice) {
+    let computerChoice = getComputerChoice();
+    console.log("Player choice:", choice);
+    console.log("Computer choice:", computerChoice);
+    let result = determineWinner(choice, computerChoice);
+    console.log(result);
+
+    if (result === "Player wins!") {
+        playerPoints++
+    } else if (result === "Computer wins!") {
+        computerPoints++;
     }
-    return choice;
+
+    results.push(result);
+    rounds++;
+
+    let winner;
+    if (playerPoints > computerPoints) {
+        winner = "Player has won the game!";
+    } else if (playerPoints < computerPoints) {
+        winner = "Computer has won the game!";
+    } else {
+        winner = "Its a tie!";
+    }
+
+    roundEndPointsUpdate();
+
+    if (playerPoints === 5 || computerPoints === 5) {
+        alert(winner)
+        playerScore.textContent = `Player Score: 0`;
+        computerScore.textContent = `Player Score: 0`;
+    }
+}
+
+function roundEndPointsUpdate() {
+    const playerScore = document.querySelector("#playerScore");
+    const computerScore = document.querySelector("#computerScore");
+    playerScore.textContent = `Player Score: ${playerPoints}`;
+    computerScore.textContent = `Computer Score: ${computerPoints}`;
 }
 
 function determineWinner(playerChoice, computerChoice) {
@@ -82,44 +114,6 @@ function determineWinner(playerChoice, computerChoice) {
             }
             break;
         default:
-            return "Invalid choices!";
+            return "";
     }
 }
-
-function letsPlay(playerChoice) {
-    let playerPoints = 0;
-    let computerPoints = 0;
-    let rounds = 0;
-    let results = []; //stores the results of each round
-
-    while(rounds < 5) {
-        let playerChoice = getPlayerChoice();
-        let computerChoice = getComputerChoice();
-        console.log("Player choice:", playerChoice);
-        // console.log("Computer choice:", computerChoice);
-        let result = determineWinner(playerChoice, computerChoice);
-        // console.log(result);
-
-        if (result === "Player wins!") {
-            playerPoints++
-        } else if (result === "Computer wins!") {
-            computerPoints++;
-        }
-
-        results.push(result);
-        rounds++;
-    }
-
-
-    let winner;
-    if(playerPoints > computerPoints) {
-        winner = "Player has won the game!";
-    } else if(playerPoints < computerPoints) {
-        winner = "Computer has won the game!";
-    } else {
-        winner = "Its a tie!";
-    }
-    
-
-    return { results, winner }; // Return the results of each round and the final winner
-};
