@@ -71,6 +71,8 @@ function playerChoiceHandler(choice) {
         alert(winner)
         playerScore.textContent = `Player Score: 0`;
         computerScore.textContent = `Player Score: 0`;
+        playerPoints = 0;
+        computerPoints = 0;
     }
 }
 
