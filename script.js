@@ -69,8 +69,8 @@ function playerChoiceHandler(choice) {
 
     if (playerPoints === 5 || computerPoints === 5) {
         alert(winner)
-        playerScore.textContent = `Player Score: 0`;
-        computerScore.textContent = `Computer Score: 0`;
+        playerScore.textContent = "Player Score: 0";
+        computerScore.textContent = "Computer Score: 0";
         playerPoints = 0;
         computerPoints = 0;
     }
