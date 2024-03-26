@@ -3,6 +3,7 @@ const paperContainer = document.querySelector("#paper");
 const scissorsContainer = document.querySelector("#scissors");
 const playerScore = document.querySelector("#playerScore");
 const computerScore = document.querySelector("#computerScore");
+const roundResult = document.querySelector("#roundResult")
 
 // Function to create a button with specified background image
 function createButton(container, backgroundImageUrl, choice) {
@@ -48,9 +49,11 @@ function playerChoiceHandler(choice) {
     console.log("Computer choice:", computerChoice);
     let result = determineWinner(choice, computerChoice);
     console.log(result);
+    roundResult.textContent = result;
 
     if (result === "Player wins!") {
         playerPoints++
+
     } else if (result === "Computer wins!") {
         computerPoints++;
     }
@@ -69,8 +72,8 @@ function playerChoiceHandler(choice) {
 
     roundEndPointsUpdate();
 
-    if (playerPoints === 5 || computerPoints === 5) {
-        alert(winner)
+    if (playerPoints === 5  || computerPoints === 5) {
+        roundResult.textContent = `${winner}`;
         playerScore.textContent = "Player Score: 0";
         computerScore.textContent = "Computer Score: 0";
         playerPoints = 0;
